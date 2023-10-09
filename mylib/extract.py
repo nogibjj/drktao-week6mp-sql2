@@ -12,7 +12,3 @@ def extract(url, file_path):
             f.write(r.content)
     return file_path
 
-extract('https://raw.githubusercontent.com/fivethirtyeight/data/master/terrorism/eu_terrorism_fatalities_by_country.csv',
-        'data/fatalities_by_country.csv')
-extract('https://raw.githubusercontent.com/fivethirtyeight/data/master/terrorism/eu_terrorism_fatalities_by_year.csv',
-        'data/fatalities_by_year.csv')

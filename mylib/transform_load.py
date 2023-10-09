@@ -1,25 +1,57 @@
 """
-Transforms and Loads data into the local SQLite3 database
-Example:
-,general name,count_products,ingred_FPro,avg_FPro_products,avg_distance_root,ingred_normalization_term,semantic_tree_name,semantic_tree_node
+Transforms and Loads data into Databricks
 """
-import sqlite3
-import csv
 import os
+from databricks import sql
+import pandas as pd
+from dotenv import load_dotenv
 
-#load the csv file and insert into a new sqlite3 database
-def load(dataset="data/GroceryDB_IgFPro.csv"):
-    """"Transforms and Loads data into the local SQLite3 database"""
+def load(ds1="data/eu_terrorism_fatalities_by_country.csv", ds2="data/eu_terrorism_fatalities_by_year.csv"):
+    df1 = pd.read_csv(ds1, delimiter=",")
+    df2 = pd.read_csv(ds2, delimiter=",")
+    load_dotenv()
+    server_h = os.getenv("SERVER_HOSTNAME")
+    access_token = os.getenv("ACCESS_TOKEN")
+    http_path = os.getenv("HTTP_PATH")
+    with sql.connect(
+        server_hostname=server_h,
+        http_path=http_path,
+        access_token=access_token,
+    ) as connection:
+        c = connection.cursor()
+        c.execute(
+            """
+            CREATE TABLE IF NOT EXISTS CountryFatalitiesDB (
+                iyear int,
+                Belgium int,
+                Denmark int,
+                France int,
+                Germany int,
+                Greece int,
+                Ireland int,
+                Italy int,
+                Luxembourg int,
+                Netherlands int,
+                Portugal int,
+                Spain int,
+                UK int
+            )
+        """
+        )
+        for _, row in df1.iterrows():
+            convert = (_,) + tuple(row)
+            c.execute(f"INSERT INTO CountryFatalitiesDB VALUES {convert}")
 
-    #prints the full working directory and path
-    print(os.getcwd())
-    payload = csv.reader(open(dataset, newline='',encoding="utf-8"), delimiter=',')
-    conn = sqlite3.connect('GroceryDB.db')
-    c = conn.cursor()
-    c.execute("DROP TABLE IF EXISTS GroceryDB")
-    c.execute("CREATE TABLE GroceryDB (id,general_name, count_products, ingred_FPro, avg_FPro_products, avg_distance_root, ingred_normalization_term, semantic_tree_name, semantic_tree_node)")
-    #insert
-    c.executemany("INSERT INTO GroceryDB VALUES (?,?, ?, ?, ?, ?, ?, ?, ?)", payload)
-    conn.commit()
-    conn.close()
-    return "GroceryDB.db"
+        c.execute(
+            """
+            CREATE TABLE IF NOT EXISTS YearFatalitiesDB (
+                iyear int,
+                fatalities int
+            )
+            """
+        )
+        for _, row in df2.iterrows():
+            convert = (_,) + tuple(row)
+            c.execute(f"INSERT INTO YearFatalitiesDB VALUES {convert}")
+    c.close()
+    return "Success"
