@@ -6,7 +6,7 @@ from databricks import sql
 import pandas as pd
 from dotenv import load_dotenv
 
-def load(ds1="data/fatalities_by_country.csv", ds2="data/fatalities_by_year.csv"):
+def load(ds1 = "data/fatalities_by_country.csv", ds2 = "data/fatalities_by_year.csv"):
     df1 = pd.read_csv(ds1, delimiter=",")
     df2 = pd.read_csv(ds2, delimiter=",")
     load_dotenv()
@@ -14,9 +14,9 @@ def load(ds1="data/fatalities_by_country.csv", ds2="data/fatalities_by_year.csv"
     access_token = os.getenv("ACCESS_TOKEN")
     http_path = os.getenv("HTTP_PATH")
     with sql.connect(
-        server_hostname=server_h,
-        http_path=http_path,
-        access_token=access_token,
+        server_hostname = server_h,
+        http_path = http_path,
+        access_token = access_token,
     ) as connection:
         c = connection.cursor()
         c.execute("SHOW TABLES FROM default LIKE 'Country*'")

@@ -1,16 +1,9 @@
 from mylib.extract import extract
-from mylib.query import complex_query
 from mylib.transform_load import load
+from mylib.query import complex_query
 
 print("Extracting data...")
-extract(
-    "https://raw.githubusercontent.com/fivethirtyeight/data/master/terrorism/eu_terrorism_fatalities_by_country.csv",
-    "data/fatalities_by_country.csv",
-)
-extract(
-    "https://raw.githubusercontent.com/fivethirtyeight/data/master/terrorism/eu_terrorism_fatalities_by_year.csv",
-    "data/fatalities_by_year.csv",
-)
+extract()
 
 print("Loading data...")
 load()
