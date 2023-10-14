@@ -16,11 +16,11 @@ def complex_query():
         access_token=access_token,
     ) as connection:
         c = connection.cursor()
-        c.execute("""SELECT c.iyear, SUM(c.UK)/SUM(y.fatalities) AS UK_prop_of_tot_fatalities
-                    FROM FatalitiesCountryDB as c
-                    LEFT JOIN FatalitiesYearDB as y on c.iyear=y.iyear
-                    GROUP BY c.iyear
-                    ORDER BY UK_prop_of_tot_fatalities 
+        c.execute("""SELECT y.iyear, SUM(c.UK)/SUM(y.fatalities) AS UK_prop_of_tot_fatalities
+                    FROM YearFatalitiesDB as y
+                    LEFT JOIN CountryFatalitiesDB as c on c.iyear=y.iyear
+                    GROUP BY y.iyear
+                    ORDER BY UK_prop_of_tot_fatalities DESC
                   """)
         rows = c.fetchall()
     for row in rows:
