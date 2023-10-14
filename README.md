@@ -9,7 +9,7 @@ In order to establish a connection to Databricks, the repo stores the necessary 
 
 The following is the complex query that is performed:
 
-![Alt text](query.png)
+![Alt text](query(2).png)
 
 
 
