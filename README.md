@@ -1,3 +1,4 @@
+[![CI](https://github.com/nogibjj/drktao-week6mp-sql2/actions/workflows/cicd.yml/badge.svg)](https://github.com/nogibjj/drktao-week6mp-sql2/actions/workflows/cicd.yml)
 
 ## SQL Complex Query
 The purpose of this project is to execute a complex SQL query of data stored in Azure Databricks. The following steps are taken:
