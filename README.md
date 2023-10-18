@@ -11,9 +11,14 @@ The following is the complex query that is performed:
 
 ![Alt text](query.png)
 
-YearFatalitiesDB contains the total number of fatalities from EU terrorism from the years 1986-2014. CountryFatalitiesDB contains the number of fatalities from EU terrorism for several European countries from the years 1970-2014. We perform a left join of YearFatalitiesDB with CountryFatalitiesDB on the iyear column. Then, we consider just the columns containing year, fatalities from the United Kingdom. and total EU fatalities. We group these data by year (in this case, aggregation is not necessary since there is only one row for each year, but if there were multiple rows for certain years, then aggregation would be necessary to perform our desired operations correctly). We then calculate the proportion of total EU fatalities that came from the UK for each year, and order these proportions from greatest to least. The results of this query can be used to examine temporal trends in the rate of EU terrorist fatalities that occur in the UK specifically, as well as which years have the highest and lowest of such rates. One can see the query results below:
+YearFatalitiesDB contains the total number of fatalities from EU terrorism from the years 1986-2014. CountryFatalitiesDB contains the number of fatalities from EU terrorism for several European countries from the years 1970-2014. We perform a left join of YearFatalitiesDB with CountryFatalitiesDB on the iyear column. Then, we consider just the columns containing year, fatalities from the United Kingdom. and total EU fatalities. We group these data by year (in this case, aggregation is not necessary since there is only one row for each year, but if there were multiple rows for certain years, then aggregation would be necessary to perform our desired operations correctly). We then calculate the proportion of total EU fatalities that came from the UK for each year, and order these proportions from greatest to least. The results of this query can be used to examine temporal trends in the rate of EU terrorist fatalities that occur in the UK specifically, as well as which years have the highest and lowest of such rates. When running this query in codespaces, here are the results:
+
+![Alt text](query_results.png)
+
+Below is a log of the successful tests from `test_main.py`:
+
+![Alt text](tests.png)
 
 
-Below is a log of the successful tests from `test_main.py`
 
 
